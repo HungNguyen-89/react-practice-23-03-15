@@ -2,11 +2,21 @@ import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { fetchAllUser } from "../services/UserService";
 import ReactPaginate from "react-paginate";
+import ModalAddNew from "./ModalAddNew";
 
 const TableUsers = (props) => {
-  const [listUser, setListuser] = useState([]);
+  const [listUsers, setListUsers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+  const handleClose = () => {
+    setIsShowModalAddNew(false);
+  };
+
+  const handleUpdateTable = (user) => {
+    setListUsers([user, ...listUsers]);
+  };
 
   useEffect(() => {
     //call API
@@ -18,7 +28,7 @@ const TableUsers = (props) => {
     let res = await fetchAllUser(page);
     if (res && res.data && res.data) {
       setTotalUsers(res.total);
-      setListuser(res.data);
+      setListUsers(res.data);
       setTotalPages(res.total_pages);
     }
   };
@@ -28,8 +38,20 @@ const TableUsers = (props) => {
   };
 
   return (
-    <div>
-      {" "}
+    <>
+      <div className="my-3 add-new">
+        <span>
+          <b> List Users</b>
+        </span>
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            setIsShowModalAddNew(true);
+          }}
+        >
+          Add new user
+        </button>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -40,9 +62,9 @@ const TableUsers = (props) => {
           </tr>
         </thead>
         <tbody>
-          {listUser &&
-            listUser.length > 0 &&
-            listUser.map((item, index) => {
+          {listUsers &&
+            listUsers.length > 0 &&
+            listUsers.map((item, index) => {
               return (
                 <tr key={`user-${index}`}>
                   <td>{item.id}</td>
@@ -72,7 +94,12 @@ const TableUsers = (props) => {
         containerClassName="pagination"
         activeClassName="active"
       />
-    </div>
+      <ModalAddNew
+        show={isShowModalAddNew}
+        handleClose={handleClose}
+        handleUpdateTable={handleUpdateTable}
+      />
+    </>
   );
 };
 
