@@ -8,6 +8,7 @@ import ModalConfirm from "./ModalConfirm";
 import _ from "lodash";
 import "./TableUsers.scss";
 import { debounce } from "lodash";
+import { CSVLink, CSVDownload } from "react-csv";
 
 const TableUsers = (props) => {
   const [listUsers, setListUsers] = useState([]);
@@ -87,7 +88,6 @@ const TableUsers = (props) => {
   };
 
   const handleSearch = debounce((e) => {
-    console.log(">>> run search term...");
     let term = e.target.value;
     if (term) {
       let cloneListUsers = _.cloneDeep(listUsers);
@@ -100,20 +100,41 @@ const TableUsers = (props) => {
     }
   }, 500);
 
+  const csvData = [
+    ["firstname", "lastname", "email"],
+    ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ["Raed", "Labes", "rl@smthing.co.com"],
+    ["Yezzi", "Min l3b", "ymin@cocococo.com"],
+  ];
+
   return (
     <>
       <div className="my-3 add-new">
         <span>
-          <b> List Users</b>
+          <b> List Users: </b>
         </span>
-        <button
-          className="btn btn-success"
-          onClick={() => {
-            setIsShowModalAddNew(true);
-          }}
-        >
-          Add new user
-        </button>
+        <div className="group-btns">
+          <label htmlFor="test" className="btn btn-warning">
+            <i class="fa-solid fa-file-import"></i> Import
+          </label>
+          <input id="test" type="file" hidden />
+          <CSVLink
+            filename={"list-users.csv"}
+            className="btn btn-primary"
+            data={csvData}
+          >
+            <i className="fa-solid fa-file-arrow-down"></i> Export
+          </CSVLink>
+
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              setIsShowModalAddNew(true);
+            }}
+          >
+            <i className="fa-solid fa-circle-plus"></i> Add new
+          </button>
+        </div>
       </div>
       <div className="col-4 my-3">
         <input
