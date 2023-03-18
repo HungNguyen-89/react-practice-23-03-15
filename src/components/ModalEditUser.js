@@ -15,7 +15,7 @@ const ModalEditUser = (props) => {
       handleClose();
       setName("");
       setJob("");
-      toast.success("User is created success!");
+      toast.success("User is updated success!");
       handleEditUserFromModal({ first_name: name, id: dataUserEdit.id });
     } else {
       toast.error("An error...");
@@ -30,7 +30,12 @@ const ModalEditUser = (props) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Edit a user</Modal.Title>
         </Modal.Header>
