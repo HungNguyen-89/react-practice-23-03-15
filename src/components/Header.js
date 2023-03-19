@@ -26,7 +26,7 @@ const Header = (props) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <NavLink to="/" className="nav-link">
-                Home{" "}
+                Home
               </NavLink>
               <NavLink to="/users" className="nav-link">
                 Mange Users
