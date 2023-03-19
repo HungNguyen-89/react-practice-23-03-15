@@ -64,6 +64,24 @@
         border: none;
         outline: none;
 
+          .spinner {
+            animation: spin infinite 3s linear;
+
+            /*You can increase or decrease the timer (5s) to 
+             increase or decrease the speed of the spinner*/
+          }
+
+          @keyframes spin {
+            from {
+              transform: rotate(90deg);
+            }
+
+            to {
+              transform: rotate(450deg);
+            }
+          }
+        
+
         &.active {
           background-color: #001a66;
           color: white;
