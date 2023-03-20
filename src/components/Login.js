@@ -14,13 +14,6 @@ const Login = () => {
 
   const [loadingAPI, setLoadingAPI] = useState(false);
 
-  // useEffect(() => {
-  //   let token = localStorage.getItem("token");
-  //   if (token) {
-  //     navigate("/");
-  //   }
-  // }, []);
-
   const handleLogin = async () => {
     if (!email || !password) {
       toast.error("Email/Password is required!");

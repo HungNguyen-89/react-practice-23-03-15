@@ -11,14 +11,6 @@ import { UserContext } from "../context/UserContext";
 const Header = (props) => {
   const { logout, user } = useContext(UserContext);
 
-  const [hideHeader, setHideHeader] = useState(false);
-
-  // useEffect(() => {
-  //   if (window.location.pathname === "/login") {
-  //     setHideHeader(true);
-  //   }
-  // });
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
